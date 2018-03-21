@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ShoppingList"
+             x:Class="ShoppingList.MainPage">
+    <StackLayout Margin="20">
+        <Editor x:Name="editor" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+        <Button x:Name="button" VerticalOptions="End" HorizontalOptions="FillAndExpand" Text="Button" HeightRequest="75"/>
+    </StackLayout>
+</ContentPage>
