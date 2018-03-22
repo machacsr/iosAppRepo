@@ -17,13 +17,44 @@ namespace ShoppingList
 		public SecondPage(List<DataModel> _list)
 		{
 			InitializeComponent ();
-            foreach (DataModel dm in _list) {
-                Console.WriteLine(dm.Data);
-            }
+            this.list = _list;
             listview.ItemsSource = new ObservableCollection<DataModel>(_list);
-
-            
-
+            listview.ItemTapped += DisableSelection;
+            listview.ItemSelected += ItemIsChecked;
         }
+
+        List<DataModel> list = null;
+
+        private void ItemIsChecked(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null) return;
+            DataModel pdm = list.Where(dm => dm.Equals((DataModel)e.SelectedItem)).FirstOrDefault();
+            if (pdm != null){
+                if (pdm.Flag){
+                    pdm.Flag = false;
+                }else{
+                    pdm.Flag = true;
+                }
+            }
+            list[list.IndexOf(pdm)] = pdm;
+            List<DataModel> SortedList = list.OrderBy(o => o.Flag).ToList();
+            listview.ItemsSource = new ObservableCollection<DataModel>(SortedList);
+        }
+
+        private void DisableSelection(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null) return;
+            ((ListView)sender).SelectedItem = null;
+            Int32 counter = 0;
+            foreach (DataModel dm in list){
+                if (dm.Flag)
+                    counter++;
+            }
+            if (counter == list.Count){
+                App.Current.MainPage = new ThirdPage();
+
+            }
+        }
+
     }
 }
