@@ -21,11 +21,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>10.3</string>
+	<string>10.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>ShoppingList</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.ShoppingList</string>
+	<string>com.xamarin.ShoppingList</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
@@ -50,5 +50,7 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>ShoppingList</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 </dict>
 </plist>

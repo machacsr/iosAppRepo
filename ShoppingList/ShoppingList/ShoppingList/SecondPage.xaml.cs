@@ -1,7 +1,9 @@
-﻿using ShoppingList.iOS.Model;
+﻿using ShoppingList.iOS.Controller;
+using ShoppingList.iOS.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +20,25 @@ namespace ShoppingList
 		{
 			InitializeComponent ();
             this.list = _list;
-            listview.ItemsSource = new ObservableCollection<DataModel>(_list);
+            this.list = EditorTextController.FileRead(list);
+
+            this.listview.ItemsSource = new ObservableCollection<DataModel>(list);
+
             listview.ItemTapped += DisableSelection;
             listview.ItemSelected += ItemIsChecked;
+            finish.Clicked += Finish_Clicked;
+
+        }
+
+        private async void Finish_Clicked(object sender, EventArgs e)
+        {
+            EditorTextController.FileWrite(list);
+            await App.Current.MainPage.FadeTo(0, 200);
+            App.Current.MainPage = new ThirdPage();
+            this.IsVisible = false;
+            await App.Current.MainPage.FadeTo(0, 1);
+            this.IsVisible = true;
+            await App.Current.MainPage.FadeTo(1, 200);
         }
 
         List<DataModel> list = null;
@@ -41,7 +59,7 @@ namespace ShoppingList
             listview.ItemsSource = new ObservableCollection<DataModel>(SortedList);
         }
 
-        private void DisableSelection(object sender, ItemTappedEventArgs e)
+        private async void DisableSelection(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null) return;
             ((ListView)sender).SelectedItem = null;
@@ -51,10 +69,15 @@ namespace ShoppingList
                     counter++;
             }
             if (counter == list.Count){
+                if (File.Exists("data.txt"))
+                    File.Delete("data.txt");
+                await App.Current.MainPage.FadeTo(0, 200);
                 App.Current.MainPage = new ThirdPage();
-
+                this.IsVisible = false;
+                await App.Current.MainPage.FadeTo(0, 1);
+                this.IsVisible = true;
+                await App.Current.MainPage.FadeTo(1, 200);
             }
         }
-
     }
 }

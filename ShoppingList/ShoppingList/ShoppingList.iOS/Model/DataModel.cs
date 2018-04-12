@@ -22,5 +22,5 @@ namespace ShoppingList.iOS.Model {
             get;
             set;
         }
-    }
+	}
 }

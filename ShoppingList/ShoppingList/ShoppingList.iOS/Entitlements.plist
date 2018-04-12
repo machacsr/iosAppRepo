@@ -3,6 +3,20 @@
 <plist version="1.0">
 <dict>
 	<key>get-task-allow</key>
-	<false/>
+	<true/>
+	<key>com.apple.developer.icloud-container-identifiers</key>
+	<array>
+		<string>iCloud.com.yourcompany.ShoppingList</string>
+	</array>
+	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
+	<string>$(AppIdentifierPrefix)$(CFBundleIdentifier)</string>
+	<key>keychain-access-groups</key>
+	<array>
+		<string></string>
+	</array>
+	<key>com.apple.external-accessory.wireless-configuration</key>
+	<true/>
+	<key>com.apple.developer.networking.HotspotConfiguration</key>
+	<true/>
 </dict>
 </plist>
